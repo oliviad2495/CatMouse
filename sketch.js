@@ -5,7 +5,7 @@ var background, backgroundImg;
 function preload() {
     //load the images here
 backgroundImg = loadImage("images/garden.png");
-catImg1 = loadImage("images/cat1.png");
+catImg1 = loadAnimation("images/cat1.png");
 catImg2 = loadAnimation("images/cat2.png","images/cat3.png");
 catImg3 = loadAnimation("images/cat4.png");
 mouseImg1 = loadAnimation("images/mouse1.png");
@@ -18,10 +18,14 @@ function setup(){
     //create tom and jerry sprites here
     cat = createSprite(800,650,50,50);
         cat.addAnimation("cat",catImg1);
+        cat.addAnimation("catTeased",catImg2);
+        cat.addAnimation("happyCat",catImg3);
         cat.scale= 0.3;
     
-    mouse = createSprite(100,650,30,30);
+    mouse = createSprite(190,650,30,30);
         mouse.addAnimation("mouse",mouseImg1);
+        mouse.addAnimation("mouseTeasing",mouseImg2);
+        mouse.addAnimation("happyMouse",mouseImg3)
     mouse.scale = 0.3;
 
 }
@@ -32,28 +36,25 @@ function draw() {
     //Write condition here to evalute if tom and jerry collide
 
     if(cat.x - mouse.x < (cat.width - mouse.width)/2){
-        mouse.addAnimation("mouseHappy",mouseImg3);
-        mouse.changeAnimation("mouseHappy");
-        cat.addAnimation("happyCat",catImg3);
-        mouse.changeAnimation("happyCat");
+        
+        mouse.changeAnimation("happyMouse");
+        cat.changeAnimation("happyCat");
+        cat.x = cat.x + 200;
         cat.velocityX = 0;
     }
 
     drawSprites();
-    keyPressed();
 }
 
 
 function keyPressed(){
 
   //For moving and changing animation write code here
-if(KeyDown("LEFT_ARROW")){
-    mouse.addAnimation("mouseteasing",mouseImg2);
+if(keyDown("LEFT_ARROW")){
     mouse.changeAnimation("mouseTeasing");
-
-    cat.addAnimation("catTeased",catImg2);
     cat.changeAnimation("catTeased");
-    cat.velocityX = -2;
+    cat.velocityX = -3;
 }
 
 }
+
